@@ -20,7 +20,7 @@ public class LambdaWordCount {
         // 将单词和一组合在一起
         JavaPairRDD<String, Integer> wordAndOne = words.mapToPair(word -> new Tuple2<>(word, 1));
         // 聚合
-        JavaPairRDD<String, Integer> reduced = wordAndOne.reduceByKey((v1, v2) -> v1 + v2);
+        JavaPairRDD<String, Integer> reduced = wordAndOne.reduceByKey(Integer::sum);
         // 调换顺序
         JavaPairRDD<Integer, String> swapped = reduced.mapToPair(Tuple2::swap);
         // 排序

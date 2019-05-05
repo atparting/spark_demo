@@ -43,13 +43,11 @@ public class RddTest {
         Map<Integer, Long> countByValue = sorted.countByValue();
         System.out.println("countByValue = " + countByValue);
         // 计算总值
-        Integer reduce = sorted.reduce((v1, v2) -> v1 + v2);
+        Integer reduce = sorted.reduce(Integer::sum);
         System.out.println("reduce = " + reduce);
         // 采样
         JavaRDD<Integer> sample = sorted.sample(false, 0.5);
         System.out.println("sample = " + sample.collect());
-
-
         // 转化为DoubleRDD
         JavaDoubleRDD doubleRDD = sorted.mapToDouble(x -> 1.0 * x);
         StatCounter stats = doubleRDD.stats();
